@@ -53,7 +53,7 @@ check_cc() {
     # Was using "-xc /dev/null", but we need a valid C program.
     $CC $CFLAGS $LDFLAGS $1 "$tempname".c -o "$tempname" >/dev/null 2>&1
     exitcode=$?
-    rm -f "$tempname" "$tempname".c "$tempname".o
+    rm -f "$tempname" "$tempname".gdb "$tempname".c "$tempname".o
     return $exitcode
 }
 
@@ -148,6 +148,7 @@ try $CC $CFLAGS $LDFLAGS \
     echo 'Example: CONFIG_EXTRA_LDLIBS="pthread dl tirpc audit pam"'
     exit 1
 }
+rm -f $EXE.gdb
 
 # Now try to remove each lib and build without it.
 # Stop when no lib can be removed.
@@ -176,6 +177,7 @@ while test "$LDLIBS"; do
 	    echo " Library $one is needed, can't exclude it (yet)"
 	    first_lib=false
 	fi
+        rm -f $EXE.gdb
     done
     # We can stop trying to drop libs if either all libs were needed,
     # or we excluded only the _first_ few.

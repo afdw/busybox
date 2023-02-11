@@ -31,7 +31,7 @@ void FAST_FUNC pause_after_failed_login(void)
 
 void FAST_FUNC sleep1(void)
 {
-	sleep(1);
+	// sleep(1);
 }
 
 void FAST_FUNC msleep(unsigned ms)
